@@ -1,4 +1,4 @@
-### Level 2
+# Level 2
 
 En ouvrant level2 avec cutter on voit que le main appelle une fonction p qui contient comme pour l'exercice precedant un gets exploitable, mais cette fois-ci le programme est protégé on ne peut donc pas exploiter la stack. Nous allons donc exploiter le heap (le tas).
 

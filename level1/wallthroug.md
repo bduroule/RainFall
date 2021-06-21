@@ -1,6 +1,6 @@
-### Level 1
+# Level 1
 
-En ouvrant le binaire level1 dans cutter on que le main contiens un buffer de 0x50 -> 80 qui est charger de recevoir le résultat du get qui lit l'entré standard après l'execution du programme. On remarque que si on dépasse ce buffer le programme segfault.
+En ouvrant le binaire level1 dans cutter on voit que le main contiens un buffer de 0x50 -> 80 qui est charger de recevoir le résultat du get qui lit l'entré standard après l'execution du programme. On remarque que si on dépasse ce buffer le programme segfault.
 
 ```
 level1@RainFall:~$ ./level1
