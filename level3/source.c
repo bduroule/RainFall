@@ -1,22 +1,22 @@
-void	p()
-{
-	char	tab[64];
-	int	EIP;
+#include <stdio.h>
+#include <stdlib.h>
 
-	fflush();
-	gets(&(tab[0]));
-	EIP = *((int*)(&tab + 80));
-	if ((EIP & 0xb0000000) == 0xb0000000){
-		printf("(%p)\n", (void*)EIP);
-		exit(1);
+int	m = 0;
+
+void v()
+{
+	char	buff[512];
+	fgets(&(buff[0]), 512, (FILE *)stdin);
+	printf(buff);
+	if (m == 64) {
+		fwrite("Wait what?!\n", 1, 13, (FILE *)stdin);
+		system("/bin/sh");
 	}
-	puts(&(tab[0]));
-	strdup(&(tab[0]));
-	return ;
 }
 
-int	main()
+int main()
 {
-	p();
-	return (0);
+	v();
+	return 0;
 }
+
