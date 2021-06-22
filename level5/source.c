@@ -1,22 +1,22 @@
-#include <stdio.h>
 #include <stdlib.h>
+#include <stdio.h>
 
-int m = 0;
-
-void p(char *format) {
-	printf(format);
+void	o()
+{
+	system("/bin/sh");
 }
 
-void n() {
-	char	s[512];
+void	n()
+{
+	char	buff[512];
 
-	fgets(&(s[0]), 512, (FILE *)stdin);
-	p(s);
-	if (m == 16930116)
-		system("/bin/cat /home/user/level5/.pass");
+	fgets(&(buff[0]), 512, (FILE*)stdin);
+	printf(buff);
+	exit(1);
 }
 
-int main() {
+int	main(void)
+{
 	n();
-	return (0);
+	return 0;
 }
