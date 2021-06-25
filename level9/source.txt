@@ -1,38 +1,39 @@
-void main(char **argv, char **envp)
-{
-    void *s1;
-    code **arg_8h;
-    int32_t var_bp_4h;
-    
-    if ((int32_t)argv < 2) {
-        _exit(1);
-    }
-    s1 = (void *)operator new(unsigned int)(0x6c);
-    N::N(int)((int32_t)s1, 5);
-    arg_8h = (code **)operator new(unsigned int)(0x6c);
-    N::N(int)((int32_t)arg_8h, 6);
-    N::setAnnotation(char*)(s1, envp[1]);
-    (**(code **)*arg_8h)(arg_8h, s1);
-    return;
-}
+class N {
+	char *string;
+	char string[108];
+	int number;
 
-void N::N(int)(int32_t arg1, int32_t arg2)
-{
-    *(code **)arg_8h = vtable.N.0;
-    *(int32_t *)(arg1+ 104) = arg2;
-    return;
-}
+	N(int number) {
+		this->number = number;
+	}
 
-int32_t N::operator-(N&)(int32_t arg_8h, int32_t arg_ch)
-{
-    return *(int32_t *)(arg_8h + 104) - *(int32_t *)(arg_ch + 104);
-}
+	int operator+(N &arg) {
+		return this->number + arg.number;
+	}
 
-void N::setAnnotation(char*)(void *s1, char *s)
-{
-    int uVar1;
-    
-    uVar1 = strlen(s);
-    memcpy((int32_t)s1 + 4, s, uVar1);
-    return;
+	void setAnnotation(char *str) {
+		size_t len;
+
+		len = strlen(str);
+
+		memcpy(this->string, str, len);
+		return;
+	}
+};
+
+int main(int ac,char **av) {
+	N nclass_1;
+	N nclass_2;
+
+	if (ac < 2) {
+		exit(1);
+	}
+
+	nclass_1 = new N(5);
+
+	nclass_2 = new N(6); 
+	
+	nclass_1->setAnnotation(av[1]);
+
+	return nclass_2.operator+(&nclass_1);;
 }
