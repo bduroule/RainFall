@@ -5,6 +5,7 @@ En executant le binaire on voit que ce dernier lance un boucle infinit, en l'ana
 - service
 - login
 - reset
+
 On essaie donc d'entrer ces commande dans le terminale. Grace a ca et a cutter on peut voir que le programme incremante deux variable globale (auth et service) via malloc voir commande ci dessous : 
 `auth` initialise notre pointeur sur la variable _auth et a chaque fois que nous retapons la commande cette dernier s'incremante de 10.
 ```
