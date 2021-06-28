@@ -17,7 +17,9 @@ ce qui nous donne :
 2147483647
 ```
 on voit donc que une fois que l'int min est dépasser celui-ci boucle vers int max  donc il faut donc faire : 
+
 $$res=\frac{intMin * 2}{4} - \frac{44}{4}$$
+
 ```
 (4294967295 / 4) - (44 / 4) = 1073741812
 ```
