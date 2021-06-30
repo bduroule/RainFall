@@ -2,7 +2,7 @@
 
 En ouvrant le level 7 avec cuter on remarque que le programme prend 2 argument qu'il fait passer dans des strcpy avec des destination de taille fix donc il y a possibiliter d'overflow les buffer comme a l'exercice precedant. On remarque egalement qu'il y a un fonction m pas appler qui cat directement le mot de passe du level 8. Donc le but est comme dans lexercie predant d'apeler cette derniere.
 
-On peut constater en tatonant que le permier argument segfault lorsqu'on luis donne un chaine de += 20 charater.
+On peut constater en tatonant que le permier argument segfault lorsqu'on luis donne un chaine de ≥ 20 charater.
 ```
 level7@RainFall:~$ ./level7 ssssssssssssssssssss test
 ~~
